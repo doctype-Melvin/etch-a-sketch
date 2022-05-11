@@ -1,0 +1,48 @@
+html, body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --main-color: #c9c9c9;
+    --darker-shade: #a3a3a3;
+    --darkest-shade: #424242;
+    --lighter-shade: #fcfc62;
+    --lightest-shade: #feffea;
+}
+
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header {
+    font-size: clamp(1.1rem, 1rem + 2vw, 3rem);
+    padding: clamp(5px, 8px, 12px);
+    background-color: var(--lighter-shade);
+    width: 100vw;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.game {
+    display: flex;
+}
+
+.board {
+    width: max(350px, 45vw);
+    height: max(350px, 40vw);
+    border: var(--darkest-shade) 2px solid;
+    border-radius: 5px;
+    display: grid;
+}
+.cell {
+    border: 1px solid rgb(219, 219, 219);
+}
