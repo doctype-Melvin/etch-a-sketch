@@ -2,6 +2,7 @@ html, body {
     font-family: Arial, Helvetica, sans-serif;
     padding: 0;
     margin: 0;
+    height: 100%;
 }
 
 :root {
@@ -21,6 +22,7 @@ html, body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 100vh;
 }
 
 .header {
@@ -32,17 +34,43 @@ html, body {
     margin-bottom: 15px;
 }
 
+@media only screen and (max-width: 600px) {
+    .game {
+        flex-direction: column;
+        align-items: center;
+    }
+    .menu {
+        flex-direction: row;
+        margin: 15px 0;
+    }
+}
+
 .game {
     display: flex;
+    justify-content: center;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
 }
 
 .board {
-    width: max(350px, 45vw);
-    height: max(350px, 40vw);
+    width: max(350px, 40vw);
+    height: max(350px, 38vw);
     border: var(--darkest-shade) 2px solid;
     border-radius: 5px;
     display: grid;
 }
 .cell {
     border: 1px solid rgb(219, 219, 219);
+}
+
+.footer {
+    margin-top: auto;
+    background-color: var(--lighter-shade);
+    width: 100%;
+    text-align: center;
+    padding: 5px;
 }
