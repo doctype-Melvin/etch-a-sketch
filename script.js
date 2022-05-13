@@ -25,9 +25,18 @@ const sketchNSketch = (() => {
         clearGrid();
         drawGrid(slider.value);
     })
-    
-    //Draw the grid on board
+    //Initiate grid on board
     const board = document.querySelector('.board');
+    const initGrid = (() => {
+        board.style.gridTemplateRows = `repeat(16, 1fr)`
+        board.style.gridTemplateColumns = `repeat(16, 1fr)`;
+    for (let i = 0; i < 16*16; i++) {
+        const cell = document.createElement('div');
+            cell.classList.add('cell');
+                board.append(cell)
+    }
+})()
+    //Use slider value to draw grid on board
     let drawGrid = (value) => {
         board.style.gridTemplateRows = `repeat(${value}, 1fr)`
         board.style.gridTemplateColumns = `repeat(${value}, 1fr)`;
@@ -35,15 +44,13 @@ const sketchNSketch = (() => {
         const cell = document.createElement('div');
             cell.classList.add('cell');
                 board.append(cell)
-    }}
-    const grid = document.querySelectorAll('.cell');
-    
-    //Clear the grid from board
-    let clearGrid = () => {
-        while (board.firstChild) {
-            board.removeChild(board.lastChild);
-        }
-    }
-    
-    
+            }}
+            
+            //Clear the grid from board
+            let clearGrid = () => {
+                while (board.firstChild) {
+                    board.removeChild(board.lastChild);
+                }
+            }
+                
 })()
