@@ -16,17 +16,34 @@ const sketchNSketch = (() => {
                     menu.append(colorPicker);
                         const slider = document.createElement('input');
                         slider.setAttribute('type', 'range');
+                        slider.min = 16;
+                        slider.max = 32;
+                        slider.value = 16;
                         menu.append(slider);
+                            
+    slider.addEventListener('change', () => {
+        clearGrid();
+        drawGrid(slider.value);
+    })
     
-    //Drawing board grid
+    //Draw the grid on board
     const board = document.querySelector('.board');
-    board.style.gridTemplateRows = 'repeat(16, 1fr)'
-    board.style.gridTemplateColumns = 'repeat(16, 1fr)';
-    for (let i = 0; i < 16*16; i++) {
+    let drawGrid = (value) => {
+        board.style.gridTemplateRows = `repeat(${value}, 1fr)`
+        board.style.gridTemplateColumns = `repeat(${value}, 1fr)`;
+    for (let i = 0; i < value**2; i++) {
         const cell = document.createElement('div');
-        cell.classList.add('cell');
-            board.append(cell)
-    };
-    //Event listeners
+            cell.classList.add('cell');
+                board.append(cell)
+    }}
     const grid = document.querySelectorAll('.cell');
+    
+    //Clear the grid from board
+    let clearGrid = () => {
+        while (board.firstChild) {
+            board.removeChild(board.lastChild);
+        }
+    }
+    
+    
 })()
