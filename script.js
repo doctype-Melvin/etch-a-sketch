@@ -52,5 +52,9 @@ const sketchNSketch = (() => {
                     board.removeChild(board.lastChild);
                 }
             }
-                
+    
+            const paint = (e) => console.log(e.target)
+    const grid = document.querySelectorAll('.cell');
+    let toggle = [];
+    
 })()
