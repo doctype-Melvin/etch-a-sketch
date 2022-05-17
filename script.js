@@ -46,15 +46,30 @@ const sketchNSketch = (() => {
                 board.append(cell)
             }}
             
-            //Clear the grid from board
-            let clearGrid = () => {
-                while (board.firstChild) {
-                    board.removeChild(board.lastChild);
-                }
-            }
+    //Clear the grid from board
+    let clearGrid = () => {
+        while (board.firstChild) {
+            board.removeChild(board.lastChild);
+        }
+    }
     
-            const paint = (e) => console.log(e.target)
     const grid = document.querySelectorAll('.cell');
-    let toggle = [];
-    
+    function paintCell(e){
+        console.log(e.target.value)
+    };
+
+    function paintOn(){
+        grid.forEach(cell => cell.addEventListener('mouseover', paintCell))
+    } 
+
+    function paintOff(){
+        grid.forEach(cell => cell.removeEventListener('mouseover', paintCell))
+    }
+
+    function toggleMode(){ //Mode can switch On and Off once 
+        paintOn();
+        board.addEventListener('click', paintOff)
+    }
+
+    board.addEventListener('click', toggleMode)
 })()
