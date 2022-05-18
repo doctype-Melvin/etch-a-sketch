@@ -54,22 +54,24 @@ const sketchNSketch = (() => {
     }
     
     const grid = document.querySelectorAll('.cell');
+    let painting = false;
     function paintCell(e){
         console.log(e.target.value)
     };
 
-    function paintOn(){
+    function paint(){
+        if (painting === false){
         grid.forEach(cell => cell.addEventListener('mouseover', paintCell))
+        painting = true;
+            }else if (painting === true){
+            grid.forEach(cell => cell.removeEventListener('mouseover', paintCell));
+            painting = false;
+        }
     } 
-
-    function paintOff(){
-        grid.forEach(cell => cell.removeEventListener('mouseover', paintCell))
+    
+    function toggleMode(){ 
+    board.addEventListener('click', paint)
     }
 
-    function toggleMode(){ //Mode can switch On and Off once 
-        paintOn();
-        board.addEventListener('click', paintOff)
-    }
-
-    board.addEventListener('click', toggleMode)
+    board.addEventListener('click', toggleMode())
 })()
