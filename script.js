@@ -20,46 +20,45 @@ const sketchNSketch = (() => {
                         slider.max = 32;
                         slider.value = 16;
                         menu.append(slider);
-                            
-    slider.addEventListener('change', () => {
-        clearGrid();
-        drawGrid(slider.value);
-    })
+                        slider.addEventListener('change', () => resetGrid())
+
+                        
     //Initiate grid on board
+    let grid 
     const board = document.querySelector('.board');
-    const initGrid = (() => {
-        board.style.gridTemplateRows = `repeat(16, 1fr)`
-        board.style.gridTemplateColumns = `repeat(16, 1fr)`;
-    for (let i = 0; i < 16*16; i++) {
-        const cell = document.createElement('div');
-            cell.classList.add('cell');
-                board.append(cell)
-    }
-})()
     //Use slider value to draw grid on board
     let drawGrid = (value) => {
         board.style.gridTemplateRows = `repeat(${value}, 1fr)`
         board.style.gridTemplateColumns = `repeat(${value}, 1fr)`;
-    for (let i = 0; i < value**2; i++) {
-        const cell = document.createElement('div');
+        for (let i = 0; i < value**2; i++) {
+            const cell = document.createElement('div');
             cell.classList.add('cell');
-                board.append(cell)
-            }}
-            
-    //Clear the grid from board
-    let clearGrid = () => {
-        while (board.firstChild) {
-            board.removeChild(board.lastChild);
+            board.append(cell);
+            grid = document.querySelectorAll('.cell')
         }
     }
+    //Use 16x16 grid on page load
+    const initGrid = (() => drawGrid(16))()
     
-    const grid = document.querySelectorAll('.cell');
-    let painting = false;
-    function paintCell(e){
-        console.log(e.target.value)
+    //Reset the grid
+    const resetGrid = () => {
+        while (board.firstChild) {
+            board.removeChild(board.lastChild);
+        };
+        drawGrid(slider.value)
+    }
+    //Setup for changing div background colors
+    let painting = false; //Flag for toggle fn
+    let color = '';
+    
+    function paintCell(e){//accesses div background property
+        if(color === '') {
+            e.target.style.backgroundColor = '#000';
+        }else if(color !== ''){
+        e.target.style.backgroundColor = color;}
     };
 
-    function paint(){
+    function paint(){//adds/removes event listeners to/from divs
         if (painting === false){
         grid.forEach(cell => cell.addEventListener('mouseover', paintCell))
         painting = true;
@@ -69,9 +68,14 @@ const sketchNSketch = (() => {
         }
     } 
     
-    function toggleMode(){ 
-    board.addEventListener('click', paint)
+    board.addEventListener('click', paint)//adds event listener to board
+
+    //Add listeners to menu buttons
+    reset.onclick = () => resetGrid();
+
+    colorPicker.onchange = (e) => {
+        color = e.target.value;
     }
 
-    board.addEventListener('click', toggleMode())
+
 })()
