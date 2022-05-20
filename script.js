@@ -45,17 +45,20 @@ const sketchNSketch = (() => {
         while (board.firstChild) {
             board.removeChild(board.lastChild);
         };
-        drawGrid(slider.value)
+        drawGrid(slider.value);
+        rainRain = false;
     }
     //Setup for changing div background colors
     let painting = false; //Flag for toggle fn
     let color = '';
+    let rainRain = false;
     
     function paintCell(e){//accesses div background property
         if(color === '') {
             e.target.style.backgroundColor = '#000';
         }else if(color !== ''){
-        e.target.style.backgroundColor = color;}
+        e.target.style.backgroundColor = color;
+        }
     };
 
     function paint(){//adds/removes event listeners to/from divs
@@ -77,5 +80,12 @@ const sketchNSketch = (() => {
         color = e.target.value;
     }
 
-
+    const randomNumber = () => {
+        return Math.floor(Math.random()*255);
+    }
+    
+    function randomColor(){
+        return `rgb(${randomNumber()}, ${randomNumber()}, ${randomNumber()})`
+    }
+    
 })()
