@@ -47,19 +47,30 @@ const sketchNSketch = (() => {
         };
         drawGrid(slider.value);
         rainRain = false;
+        greyGrey = false
     }
     //Setup for changing div background colors
     let painting = false; //Flag for toggle fn
     let color = '';
     let rainRain = false;
+    let greyGrey = false
     
     function paintCell(e){//accesses div background property
-        if(color === '' && rainRain === false) {
+        if(color === '' && rainRain === false && greyGrey === false) {
             e.target.style.backgroundColor = '#000';
+            e.target.style.transition = '0.1s'
         }else if(color !== ''){
-        e.target.style.backgroundColor = color;
+            e.target.style.backgroundColor = color;
+            e.target.style.transition = '0.1s'
         }else if (rainRain && color === '' || rainRain && color !== ''){
             e.target.style.backgroundColor = randomColor()
+            e.target.style.transition = '0.1s'
+        }else if (greyGrey && color === '' || greyGrey && color !== ''){
+            e.target.style.backgroundColor = '#000'
+            if (e.target.style.opacity <= '1' || e.target.style.opacity === '') {
+                e.target.style.opacity += '0.1'
+                console.log(e.target.style.opacity) // Opacity value should increment with each passing of the target
+            }
         }
     };
 
@@ -67,12 +78,15 @@ const sketchNSketch = (() => {
         if (!painting){
         grid.forEach(cell => cell.addEventListener('mouseover', paintCell))
         painting = true;
-            }else if (painting){
+        }else if (painting){
             grid.forEach(cell => cell.removeEventListener('mouseover', paintCell));
             painting = false;
         }else if(rainRain && !painting){
-            grid.forEach(cell => cell.addEventListener('mouseover', paintCell))
-            painting = true
+                    grid.forEach(cell => cell.addEventListener('mouseover', paintCell))
+                    painting = true
+        }else if (greyGrey && !painting) {
+                        grid.forEach(cell => cell.addEventListener('mouseover', paintCell))
+                        painting = true
         }
     } 
     
@@ -93,9 +107,13 @@ const sketchNSketch = (() => {
     function randomColor(){
         return `rgb(${randomNumber()}, ${randomNumber()}, ${randomNumber()})`
     }
-    rainbow.addEventListener('click', (e) => {
+    rainbow.addEventListener('click', () => {
         rainRain = true
-
+        greyGrey = false
     })
 
+    greyScale.addEventListener('click', () => {
+        greyGrey = true
+        rainRain = false
+    })
 })()
