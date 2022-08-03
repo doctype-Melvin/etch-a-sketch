@@ -54,20 +54,25 @@ const sketchNSketch = (() => {
     let rainRain = false;
     
     function paintCell(e){//accesses div background property
-        if(color === '') {
+        if(color === '' && rainRain === false) {
             e.target.style.backgroundColor = '#000';
         }else if(color !== ''){
         e.target.style.backgroundColor = color;
+        }else if (rainRain && color === '' || rainRain && color !== ''){
+            e.target.style.backgroundColor = randomColor()
         }
     };
 
     function paint(){//adds/removes event listeners to/from divs
-        if (painting === false){
+        if (!painting){
         grid.forEach(cell => cell.addEventListener('mouseover', paintCell))
         painting = true;
-            }else if (painting === true){
+            }else if (painting){
             grid.forEach(cell => cell.removeEventListener('mouseover', paintCell));
             painting = false;
+        }else if(rainRain && !painting){
+            grid.forEach(cell => cell.addEventListener('mouseover', paintCell))
+            painting = true
         }
     } 
     
@@ -78,6 +83,7 @@ const sketchNSketch = (() => {
 
     colorPicker.onchange = (e) => {
         color = e.target.value;
+        rainRain = false
     }
 
     const randomNumber = () => {
@@ -87,5 +93,9 @@ const sketchNSketch = (() => {
     function randomColor(){
         return `rgb(${randomNumber()}, ${randomNumber()}, ${randomNumber()})`
     }
-    
+    rainbow.addEventListener('click', (e) => {
+        rainRain = true
+
+    })
+
 })()
