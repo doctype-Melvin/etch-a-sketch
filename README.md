@@ -6,3 +6,6 @@ a more SOLID approach.
 - Vanilla JavaScript
 - CSS
 - HTML
+
+# Update Oct. 2022
+Refactoring the whole project utilizing Webpack to make the codebase clearer.
