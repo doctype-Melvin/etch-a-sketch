@@ -1,4 +1,4 @@
-export const App = (() => {
+export const Board = (() => {
     let grid
     const board = document.querySelector('.board');
     let drawGrid = (value) => {
@@ -23,4 +23,6 @@ export const App = (() => {
         resetGrid
     }
 })()
+
+Board.drawGrid(16)
 
